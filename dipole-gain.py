@@ -137,6 +137,7 @@ for fo in range (-1,MAG,1):
 
 of.close()
 
+
 plt.plot(reqF,gain)
 plt.xscale('log',base=10) 
 plt.xlabel('appliquée Hz')
