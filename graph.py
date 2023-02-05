@@ -5,6 +5,7 @@
 import argparse
 import csv
 import matplotlib.pyplot as plt
+import math
 
 
 def import_text(filename, separator):
@@ -19,7 +20,9 @@ parser = argparse.ArgumentParser(description='mesure grapher')
 parser.add_argument('filename', type=str, help='Name of file to graph')
 parser.add_argument('-x', dest='x', type=int, help='X column index')
 parser.add_argument('-y', dest='y', type=int, help='Y column index')
-parser.add_argument('-xlog', dest='xlogscale',  action='store_true', help='0 ou 1 (dafault=0)')
+parser.add_argument('-db', dest='gain',  action='store_true')
+parser.add_argument('-s', dest='sec', type=int, help='Secondary Y column index')
+parser.add_argument('-xlog', dest='xlogscale',  action='store_true')
 parser.add_argument('-v', '--verbose', dest='verbose', action='store_true')  # on/off flag
 
 args = parser.parse_args()
@@ -40,16 +43,36 @@ if (args.xlogscale is None):
 	
 xValues=[]
 yValues=[]
+sValues=[]
+gValues=[]
+
 for data in import_text(args.filename, ','):
 	if (args.verbose):
 		print (data[args.x]+","+data[args.y])
 	xValues.append(float(data[args.x]))
 	yValues.append(float(data[args.y]))
+	if (args.sec):
+		sValues.append(float(data[args.sec]))
+		if (args.gain):
+			gValues.append(math.log10(float(data[args.y])/float(data[args.sec])))
 
-	
-plt.plot(xValues,yValues)
+plt.figure(num='Graph')
+
+if (args.gain):
+	plt.plot(xValues,gValues)
+else:
+	plt.plot(xValues,yValues)
+	if (args.sec):
+		plt.plot(xValues,sValues)
+
 if (args.xlogscale):
 	plt.xscale('log',base=10) 
+
+plt.grid(linestyle='--')
+
+if (args.sec):
+	print ("voie secondaire")
+
 plt.show()
 
 
