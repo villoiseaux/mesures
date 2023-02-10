@@ -136,7 +136,7 @@ for fo in range (-1,MAG,1):
 		of.write(str(fr)+","+str(UI)+","+str(u)+","+str(f)+"\n")
 
 of.close()
-
+resetDevice(geneFunct)
 
 plt.plot(reqF,gain)
 plt.xscale('log',base=10) 
@@ -144,5 +144,5 @@ plt.xlabel('appliquée Hz')
 plt.ylabel('gain dB')
 plt.title("Gain en tension "+str(UIN)+"V ")
 plt.show()
-resetDevice(geneFunct)
+
 
