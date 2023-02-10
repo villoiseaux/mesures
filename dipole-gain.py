@@ -144,4 +144,5 @@ plt.xlabel('appliquée Hz')
 plt.ylabel('gain dB')
 plt.title("Gain en tension "+str(UIN)+"V ")
 plt.show()
+resetDevice(geneFunct)
 
