@@ -129,6 +129,6 @@ dmypy.json
 .pyre/
 
 # Run files
-.csv/
-.png/
+*.csv
+*.png
 
