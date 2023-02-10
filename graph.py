@@ -6,6 +6,7 @@ import argparse
 import csv
 import matplotlib.pyplot as plt
 import math
+import re
 
 
 def import_text(filename, separator):
@@ -54,9 +55,15 @@ for data in import_text(args.filename, ','):
 	if (args.sec):
 		sValues.append(float(data[args.sec]))
 		if (args.gain):
-			gValues.append(math.log10(float(data[args.y])/float(data[args.sec])))
+			if ((float(data[args.y])>0) and (float(data[args.sec])>0)):
+				print (float(data[args.y]))
+				print (float(data[args.sec]))
+				gValues.append(math.log10(float(data[args.y])/float(data[args.sec])))
+			else:
+				xValues.pop()
 
-plt.figure(num='Graph')
+title=re.sub('\.csv$', '', args.filename)
+plt.figure(num=title)
 
 if (args.gain):
 	plt.plot(xValues,gValues)
@@ -69,9 +76,6 @@ if (args.xlogscale):
 	plt.xscale('log',base=10) 
 
 plt.grid(linestyle='--')
-
-if (args.sec):
-	print ("voie secondaire")
 
 plt.show()
 
