@@ -19,7 +19,7 @@ ACR=1
 # Magnitude
 MAG=7
 # Tension IN (V)
-UIN=10
+UIN=4
 
 def listDevices(idnTemplate):
 	ports = []
@@ -107,7 +107,7 @@ applyCommand(geneFunct,b'SOURCE1:APPLY:SIN 50,5')
 sys.stderr.write ("* SIN\n* 50 Hz\n* 5 Vpp\n\n")
 
 sys.stderr.write ("# check signal\n")
-instr.ask("VOLT:AC:RANGE 6")
+instr.ask("VOLT:AC:RANGE 60")
 instr.ask("SENS:FUNC2 \"FREQ\"")
 time.sleep(2)
 
